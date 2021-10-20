@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: organization-service
+  profiles:
+    active: dev
+  cloud:
+    config:
+     uri: http://host.docker.internal:8071
