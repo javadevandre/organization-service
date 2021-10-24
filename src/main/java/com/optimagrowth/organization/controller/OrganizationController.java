@@ -3,6 +3,7 @@ package com.optimagrowth.organization.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,18 +25,21 @@ public class OrganizationController {
 	private OrganizationService organizationService;
 	
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Organization>  createOrganization(
 			@RequestBody Organization organization) {
 		return ResponseEntity.ok(organizationService.createOrganization(organization));
 	}
 	
 	@GetMapping(value="/{organizationId}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<Organization> readOrganization(
     		@PathVariable("organizationId") String organizationId) {
         return ResponseEntity.ok(organizationService.readOrganization(organizationId));
     }
 
     @PutMapping(value="/{organizationId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<Organization> updateOrganization(
     		@PathVariable("organizationId") String organizationId,
     		@RequestBody Organization organization) {
@@ -43,6 +47,7 @@ public class OrganizationController {
     }
 
     @DeleteMapping(value="/{organizationId}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrganization(
     		@PathVariable("organizationId") String organizationId,

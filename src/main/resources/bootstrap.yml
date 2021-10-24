@@ -9,3 +9,14 @@ spring:
   cloud:
     config:
      uri: http://host.docker.internal:8071
+     
+     
+keycloak:
+  realm: spmia-realm
+  auth-server-url: http://localhost:8069/auth
+  ssl-required: external
+  resource: o-stock
+  use-resource-role-mappings: true
+  bearer-only: true
+  credentials:
+    secret: 9d297886-d396-4d4f-89b7-56b77cf08dc2
